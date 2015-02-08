@@ -14,6 +14,7 @@
 	import flash.display.StageDisplayState;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	//import flash.filesystem.File;
 	
 	
 	public class Main extends MovieClip {
@@ -37,7 +38,7 @@
 		// นับ step ละ 1s
 		private var stepIntervalID:uint;
 		private var stepCnt:Number;
-		
+		private var httpService:HTTPService;
 		
 		public function Main() {
 			
@@ -100,7 +101,7 @@
 					stepCnt++;
 					if(stepCnt == Main.CONFIG_STEP_REFRESH_UI * Main.CONFIG_STEP_QUERY) stepCnt = 0;
 					
-				}, 1000);
+				}, 100);
 				
 				// นาฬิกา 
 			 	Main.rt.clockIntervalID = setInterval(function(){ updateClockUI();}, (60 * 1000));
@@ -117,14 +118,38 @@
 			});
 			loader.load(new URLRequest("./" + Main.CONFIG_XML));
 			
-			try { stage.displayState=StageDisplayState.FULL_SCREEN; }catch(err:Error){}
+			//try { stage.displayState=StageDisplayState.FULL_SCREEN; }catch(err:Error){}
 			
 			// -------------------------------------------------------------------
 			// -------------------------------------------------------------------
-			
-			(Main.rt.mq as MaqueeText).setText("Hello world !! This is very long message ......................");
-			
+			//var prefsFile:flash.filesystem.File = new flash.filesystem.File("c:\\comportservice\\test.txt");
+			//var desktop:File = File.desktopDirectory;			
+			//(Main.rt.debugTxt as TextField).text = (File.desktopDirectory.nativePath);
 			/*
+			var folderURI="file:///c:/comportservice";
+			fileList =new Array();
+			paths="";
+			
+			function listFile(paths){
+				files=[]
+				folds=[]	
+				files=FLfile.listFolder(paths,"files");	
+				for(i=0;i<files.length;i++){
+				fileList.push(paths+"/"+filesfolds=FLfile.listFolder(paths,"directories");
+				for(j=0;j<folds.length;j++){
+					
+					listFile(paths+"/"+folds[j])
+				}
+			}
+			listFile(folderURI);
+			fl.trace(String(fileList).split(",").join("\n
+			*/
+			/*
+			
+			this.hiddenQueryButton.addEventListener(MouseEvent.CLICK, function(e:Event) {
+				startQueryAndUpdateUI();
+			});
+			*/
 			this.hiddenToggleButton.addEventListener(MouseEvent.CLICK, function(e:Event) {
 				try { 
 					if (stage.displayState == StageDisplayState.NORMAL) {
@@ -134,20 +159,14 @@
 					}
 				}catch(err:Error){}
 			});
-			this.hiddenQueryButton.addEventListener(MouseEvent.CLICK, function(e:Event) {
-				startQueryAndUpdateUI();
-			});
-			*/
 		}
+		
 		private function doQuery():void{
 			
-			if(Main.DEBUG_TRACE) trace("[Query and UI]");
+			if(this.httpService != null) this.httpService.clearQueue();
 			
-			var service = new HTTPService(function(arr){
+			this.httpService = new HTTPService(function(rObject){
 				
-				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr.length);
-				
-
 				try{
 				
 					
@@ -167,7 +186,7 @@
 				((this["clock"] as MovieClip).clockLabel as TextField).text = Utils.timeString();
 			}
 			// วันที่
-			if (getChildByName("dateLabel") != null) this["dateLabel"].text = Utils.thaiDateString();
+			//if (getChildByName("dateLabel") != null) this["dateLabel"].text = Utils.thaiDateString();
 		}
 		private function clearUI():void{
 			/*

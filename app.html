@@ -1,0 +1,37 @@
+﻿<!-- saved from url=(0013)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>app</title>
+</head>
+<body bgcolor="#006633">
+<script language="JavaScript">
+<!--
+var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
+// Handle all the FSCommand messages in a Flash movie.
+function app_DoFSCommand(command, args) {
+	var appObj = isInternetExplorer ? document.all.app : document.app;
+	//
+	// Place your code here.
+	//
+}
+// Hook for Internet Explorer.
+if (navigator.appName && navigator.appName.indexOf("Microsoft") != -1 && navigator.userAgent.indexOf("Windows") != -1 && navigator.userAgent.indexOf("Windows 3.1") == -1) {
+	document.write('<script language=\"VBScript\"\>\n');
+	document.write('On Error Resume Next\n');
+	document.write('Sub app_FSCommand(ByVal command, ByVal args)\n');
+	document.write('	Call app_DoFSCommand(command, args)\n');
+	document.write('End Sub\n');
+	document.write('</script\>\n');
+}
+//-->
+</script>
+<!--url's used in the movie-->
+<!--text used in the movie-->
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=19,0,0,0" id="app" width="500" height="300" align="middle">
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="app.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#006633" /><embed src="app.swf" quality="high" bgcolor="#006633" width="500" height="300" swLiveConnect=true id="app" name="app" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" />
+</object>
+</body>
+</html>

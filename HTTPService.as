@@ -18,15 +18,19 @@
 	{
 		var successCallback: Function;
 		var failedCallback: Function;
+		
+		private var isResponse:Boolean;
+		private var loader:URLLoader;
 
 		public function HTTPService(sc:Function = null, fc:Function = null)
 		{
 			
 			this.successCallback = sc;
 			this.failedCallback = fc;
+			this.isResponse = false;
 			
-			var loader:URLLoader = new URLLoader();
-			
+			loader = new URLLoader();
+		
 			var urlRequest : URLRequest = new URLRequest(Main.CONFIG_SERVER_URL + "?"+ (new Date().getTime()));  
 			urlRequest.method = URLRequestMethod.POST;  
 			
@@ -44,20 +48,22 @@
 			});
 			
 			loader.load(urlRequest);
-									
+		
 			function processResponse(e:Event):void
 			{
+				isResponse = true;
+				
 				try{
 					var rData:String = e.target.data;
 					if(Main.DEBUG_TRACE){
 						//trace("-----------------");
-						//trace(rData);
+						trace(rData);
 						//trace("-----------------");
 					}
-					var rArray:Array = com.adobe.serialization.json.JSON.decode(rData) as Array;
+					var rObject:Object = com.adobe.serialization.json.JSON.decode(rData) as Object;
 					
 					if(successCallback != null){
-						successCallback(rArray);
+						successCallback(rObject);
 					}
 					
 				}catch(err:Error){
@@ -66,8 +72,11 @@
 					}
 					if(Main.DEBUG_TRACE) trace("Error - parse JSON");
 				}
-				
 			}
+			
+		}
+		public function clearQueue():void{
+			if(!this.isResponse) this.loader.close();
 		}
 	}
 }

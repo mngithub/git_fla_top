@@ -2,15 +2,15 @@
 	
 	<!-- --------------------------- SERVER ------------------------- -->
 	
-	<auth>FtdV5IIJap</auth>
-	<serverURL>http://122.155.12.135/~tcc/query_day_2.php</serverURL>
+	<auth>FtdV5IIJapewfsT</auth>
+	<serverURL>http://localhost/git_fla_top/server/display.php</serverURL>
 	
 
 	
 	<!-- --------------------------- TIME --------------------------- -->
 	
-	<!-- query ข้อมูลทุกกี่วินาที  -->
-	<stepQuery>180</stepQuery>
+	<!-- query ข้อมูลทุกกี่ step -->
+	<stepQuery>3</stepQuery>
 
 	<!-- update ข้อมูลทุกกี่วินาที  -->
 	<stepRefreshUI>5</stepRefreshUI>
